@@ -26,7 +26,9 @@ public class FilterTaskAuth extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
-                //pegar a autenticação (usuario e senha)
+                var servletPath = request.getServletPath();
+                if (servletPath.equals("/tasls/")) {
+                                    //pegar a autenticação (usuario e senha)
                 var authorization = request.getHeader("Authorization");
 
                 var authEncoded = authorization.substring("Basic".length()).trim();
@@ -53,6 +55,10 @@ public class FilterTaskAuth extends OncePerRequestFilter {
 
 
                 }
+                }else{
+                     filterChain.doFilter(request, response);
+                }
+
 
     }
 

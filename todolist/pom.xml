@@ -36,6 +36,7 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- permite facilitar as anota;óes, tipo o @data que permite que crie getters e setters  -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>

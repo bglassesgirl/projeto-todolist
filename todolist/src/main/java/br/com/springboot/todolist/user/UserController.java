@@ -16,7 +16,7 @@ import at.favre.lib.crypto.bcrypt.BCrypt;
 public class UserController {
 
     /*
-     * a @Autowired define que o spring via gerrenciar todo 
+     * a @Autowired define que o spring via gerrenciar todo
      * ciclo de vida do repository
      */
     @Autowired
@@ -25,16 +25,18 @@ public class UserController {
 
     @PostMapping("/")
     public ResponseEntity create(@RequestBody UserModel userModel){
+        //System.out.println(userModel.getName());
         var user = this.userRepository.findByUsername(userModel.getUsername());
- 
+
+
         if (user != null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Usuário  já existe!");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Usuário já existe!");
         }
         /*
          * cryptografia de senhas com o BCrypt
          */
         var passwordHashred = BCrypt.withDefaults()
-        .hashToString(12, userModel.getPassword().toCharArray());
+              .hashToString(12, userModel.getPassword().toCharArray());
 
         userModel.setPassword(passwordHashred);
 

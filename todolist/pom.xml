@@ -16,11 +16,14 @@
 	<properties>
 		<java.version>17</java.version>
 	</properties>
+
 	<dependencies>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>org.glassfish.jaxb</groupId>
 			<artifactId>jaxb-runtime</artifactId>
@@ -44,9 +47,24 @@
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 
+
+         <!-- BD simples memory read only  -->
+        <!-- <dependency>
+		     <groupId>com.h2.databasae</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency> -->
+        <!-- banco de produção -->
 		<dependency>
 			<groupId>com.mysql</groupId>
 			<artifactId>mysql-connector-j</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+		    <groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.33</version>
 		</dependency>
 
         <!-- CRIPTOGRAFIA DE SENHAS  -->
@@ -55,6 +73,18 @@
 			<artifactId>bcrypt</artifactId>
 			<version>0.10.2</version>
 		</dependency>
+
+		<dependency>
+			<artifactId>spring-boot-starter-data-mongodb</artifactId>
+			<groupId>org.springframework.boot</groupId>
+			<exclusions>
+				<exclusion>
+				<artifactId>snakeyaml</artifactId>
+				<groupId>org.yaml</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
 
 	</dependencies>
 

@@ -19,7 +19,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class FilterTaskAuth extends OncePerRequestFilter {
     @Autowired
     private IUserRepository userRepository;
-    private UserModel  user;
+    private UserModel user;
 
 
     @Override
@@ -27,7 +27,6 @@ public class FilterTaskAuth extends OncePerRequestFilter {
             throws ServletException, IOException {
 
                 var servletPath = request.getServletPath();
-
 
                 if (servletPath.equals("/tasks/")) {
                         //pegar a autenticação (usuario e senha)
@@ -49,13 +48,12 @@ public class FilterTaskAuth extends OncePerRequestFilter {
                             //validar senha
                             var passwordVerify = BCrypt.verifyer().verify(password.toCharArray(), this.user.getPassword() );
                             if (passwordVerify.verified) {
+                                //segue viagem
+                                request.setAttribute("idUser", this.user.getId());
                                 filterChain.doFilter(request, response);
                             }else{
                                 response.sendError(401);
                             }
-                            //segue viagem
-
-
                         }
                 } else {
                      filterChain.doFilter(request, response);

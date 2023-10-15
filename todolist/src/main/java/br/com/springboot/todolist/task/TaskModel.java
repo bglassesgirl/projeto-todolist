@@ -33,5 +33,10 @@ public class TaskModel {
     private LocalDateTime createdAt;
 
 
-
+    public void setTittle(String tittle) throws Exception{
+        if (tittle.length() > 50) {
+            throw new Exception("O campo tittle deve contrer no máximo 50 caracteres ");
+        }
+        this.tittle = tittle;
+    }
 }

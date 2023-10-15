@@ -8,12 +8,11 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 
-import ch.qos.logback.core.joran.util.beans.BeanUtil;
 
 public class Utils {
 
     public static void copyNonNullProperties(Object source, Object target){
-        BeanUtils.copyProperties(source, target, getNullPropertyNames(source);
+        BeanUtils.copyProperties(source, target, getNullPropertyNames(source));
     }
 
 

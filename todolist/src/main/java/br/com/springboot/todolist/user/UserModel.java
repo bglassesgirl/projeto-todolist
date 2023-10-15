@@ -38,4 +38,8 @@ public class UserModel {
     @CreationTimestamp
     private LocalDateTime createdAT;
 
+    // estrutura datetime
+    // yyyy-mm-ddTHH:mm:ss
+
+
 }

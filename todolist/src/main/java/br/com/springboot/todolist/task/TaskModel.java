@@ -1,4 +1,4 @@
-package br.com.springboot.todolist.task;
+ package br.com.springboot.todolist.task;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -26,12 +26,12 @@ public class TaskModel {
     private LocalDateTime starAt;
     private LocalDateTime endAt;
     private String priority;
-    
+
     private UUID idUser;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-      
-    
+
+
 }

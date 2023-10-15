@@ -17,6 +17,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @Component
 public class FilterTaskAuth extends OncePerRequestFilter {
+
     @Autowired
     private IUserRepository userRepository;
     private UserModel user;
@@ -26,29 +27,40 @@ public class FilterTaskAuth extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
+                // aqui so cadastra uma tarefa caso o usuario e senha sejam validas
+
                 var servletPath = request.getServletPath();
 
-                if (servletPath.equals("/tasks/")) {
+                if (servletPath.startsWith("/tasks/")) {
                         //pegar a autenticação (usuario e senha)
+
+                        // a autoriza;áo vai ver codificada
                         var authorization = request.getHeader("Authorization");
 
+                        //o user a senha vai ser separada do basic
                         var authEncoded = authorization.substring("Basic".length()).trim();
+
+                        //juntar em um array e descodificar (user:senha)
                         byte[] authDecode = Base64.getDecoder().decode(authEncoded);
                         var authString = new String(authDecode);
 
+                        //dividir o array em dois
+                        // ["glassesgirl", "12345"]
+                        //e atribuir uma variavel a cada subarray
                         String[] credentials = authString.split(":");
                         String username = credentials[0];
                         String password  = credentials[1];
 
-                        //validar usuario
+                        //validar se o user existe
                         var user = this.userRepository.findByUsername(username);
                         if (user == null) {
                             response.sendError(401);
                         }else{
-                            //validar senha
+                            //se o user existe vai validar senha
                             var passwordVerify = BCrypt.verifyer().verify(password.toCharArray(), this.user.getPassword() );
                             if (passwordVerify.verified) {
                                 //segue viagem
+                                // obriga a pegar o id sem precisar colocaar no request
                                 request.setAttribute("idUser", this.user.getId());
                                 filterChain.doFilter(request, response);
                             }else{
